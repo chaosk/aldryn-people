@@ -135,7 +135,7 @@ jobs:
            npm install -g codeclimate-test-reporter &&
            npm install &&
            . venv/bin/activate && 
-           tox -e py35-dj19-cms33
+           tox -e py35-dj19-cms33-fe
       - save_cache:
           key: py35-{{ .Environment.CIRCLE_SHA1 }}
           paths: "~/aldryn/3.5"
@@ -396,7 +396,7 @@ jobs:
            npm install -g codeclimate-test-reporter &&
            npm install &&
            . venv/bin/activate && 
-           tox -e py27-dj18-cms33
+           tox -e py27-dj18-cms33-fe
 
 ########################
 
