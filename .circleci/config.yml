@@ -1,0 +1,515 @@
+version: 2.0
+
+jobs:
+
+########################
+
+  py35_code:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - checkout
+      - run: virtualenv venv && . venv/bin/activate && pip install tox 
+      - save_cache:
+          key: py35-{{ .Environment.CIRCLE_SHA1 }}
+          paths: "~/aldryn/3.5"
+
+  py35_dj111_cms35:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj111-cms35
+
+  py35_dj111_cms34:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj111-cms34
+
+  py35_dj110_cms35:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj110-cms35
+
+  py35_dj110_cms34:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj110-cms34
+
+  py35_dj19_cms34:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj19-cms34
+
+  py35_dj19_cms33:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj19-cms33
+
+  py35_dj19_cms32:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj19-cms32
+
+  py35_dj18_cms34:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj18-cms34
+
+  py35_dj18_cms33:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj18-cms33
+
+  py35_dj18_cms32:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && tox -e py35-dj18-cms32
+
+  py35_dj19_cms33_fe:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: > 
+           curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash &&
+           export NVM_DIR="$HOME/.nvm" &&
+           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && 
+           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" &&
+           nvm install 6 && 
+           nvm use 6 &&
+           npm config set spin false &&
+           npm install -g gulp@3.9.0 &&
+           npm install -g codeclimate-test-reporter &&
+           npm install &&
+           . venv/bin/activate && 
+           tox -e py35-dj19-cms33
+      - save_cache:
+          key: py35-{{ .Environment.CIRCLE_SHA1 }}
+          paths: "~/aldryn/3.5"
+
+  coveralls:
+    docker:
+      - image: circleci/python:3.5
+    working_directory: ~/aldryn/3.5
+    steps:
+      - restore_cache:
+          keys: py35-
+          paths: "~/aldryn/3.5"
+      - run: . venv/bin/activate && pip install coveralls && coveralls
+
+########################
+
+  py34_code:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - checkout
+      - run: virtualenv venv && . venv/bin/activate && pip install tox
+      - save_cache:
+          key: py34-{{ .Environment.CIRCLE_SHA1 }}
+          paths: "~/aldryn/3.4"
+
+  py34_dj111_cms35:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj111-cms35
+
+  py34_dj111_cms34:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj111-cms34
+
+  py34_dj110_cms35:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj110-cms35
+
+  py34_dj110_cms34:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj110-cms34
+
+  py34_dj19_cms34:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj19-cms34
+
+  py34_dj19_cms33:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj19-cms33
+
+  py34_dj19_cms32:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj19-cms32
+
+  py34_dj18_cms34:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj18-cms34
+
+  py34_dj18_cms33:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj18-cms33
+
+  py34_dj18_cms32:
+    docker:
+      - image: circleci/python:3.4
+    working_directory: ~/aldryn/3.4
+    steps:
+      - restore_cache:
+          keys: py34-
+          paths: "~/aldryn/3.4"
+      - run: . venv/bin/activate && tox -e py34-dj18-cms32 
+
+########################
+
+
+  py27_code:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - checkout
+      - run: virtualenv venv && . venv/bin/activate && pip install tox
+      - save_cache:
+          key: py27-{{ .Environment.CIRCLE_SHA1 }}
+          paths: "~/aldryn/2.7" 
+
+  py27_dj111_cms35:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj111-cms35
+
+  py27_dj111_cms34:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj111-cms34
+
+  py27_dj110_cms35:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj110-cms35
+
+  py27_dj110_cms34:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj110-cms34
+
+  py27_dj19_cms34:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj19-cms34
+
+  py27_dj19_cms33:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj19-cms33
+
+  py27_dj19_cms32:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj19-cms32
+
+  py27_dj18_cms34:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj18-cms34
+
+  py27_dj18_cms33:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj18-cms33
+
+  py27_dj18_cms32:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: . venv/bin/activate && tox -e py27-dj18-cms32
+
+  py27_dj18_cms33_fe:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/aldryn/2.7
+    steps:
+      - restore_cache:
+          keys: py27-
+          paths: "~/aldryn/2.7"
+      - run: >
+           curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash && 
+           export NVM_DIR="$HOME/.nvm" &&
+           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && 
+           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" &&
+           nvm install 6 && 
+           nvm use 6 &&
+           npm config set spin false &&
+           npm install -g gulp@3.9.0 &&
+           npm install -g codeclimate-test-reporter &&
+           npm install &&
+           . venv/bin/activate && 
+           tox -e py27-dj18-cms33
+
+########################
+
+workflows:
+  version: 2
+  py35:
+    jobs:
+      - py35_code
+      - py35_dj111_cms35:
+          requires:
+            - py35_code
+      - py35_dj111_cms34: 
+          requires: 
+            - py35_code
+      - py35_dj110_cms34: 
+          requires: 
+            - py35_code
+      - py35_dj110_cms34: 
+          requires: 
+            - py35_code
+      - py35_dj19_cms34: 
+          requires: 
+            - py35_code
+      - py35_dj19_cms33: 
+          requires: 
+            - py35_code
+      - py35_dj19_cms32: 
+          requires: 
+            - py35_code
+      - py35_dj18_cms34: 
+          requires: 
+            - py35_code
+      - py35_dj18_cms33: 
+          requires: 
+            - py35_code
+      - py35_dj18_cms32: 
+          requires: 
+            - py35_code
+      - py35_dj19_cms33_fe: 
+          requires: 
+            - py35_code
+      - coveralls:
+          requires:
+            - py35_dj19_cms33_fe
+            
+  py34:
+    jobs:
+      - py34_code
+      - py34_dj111_cms35:
+          requires:
+            - py34_code
+      - py34_dj111_cms34: 
+          requires: 
+            - py34_code
+      - py34_dj110_cms34: 
+          requires: 
+            - py34_code
+      - py34_dj110_cms34: 
+          requires: 
+            - py34_code
+      - py34_dj19_cms34: 
+          requires: 
+            - py34_code
+      - py34_dj19_cms33: 
+          requires: 
+            - py34_code
+      - py34_dj19_cms32: 
+          requires: 
+            - py34_code
+      - py34_dj18_cms34: 
+          requires: 
+            - py34_code
+      - py34_dj18_cms33: 
+          requires: 
+            - py34_code
+      - py34_dj18_cms32: 
+          requires: 
+            - py34_code
+
+  py27:
+    jobs:
+      - py27_code
+      - py27_dj111_cms35:
+          requires:
+            - py27_code
+      - py27_dj111_cms34: 
+          requires: 
+            - py27_code
+      - py27_dj110_cms34: 
+          requires: 
+            - py27_code
+      - py27_dj110_cms34: 
+          requires: 
+            - py27_code
+      - py27_dj19_cms34: 
+          requires: 
+            - py27_code
+      - py27_dj19_cms33: 
+          requires: 
+            - py27_code
+      - py27_dj19_cms32: 
+          requires: 
+            - py27_code
+      - py27_dj18_cms34: 
+          requires: 
+            - py27_code
+      - py27_dj18_cms33: 
+          requires: 
+            - py27_code
+      - py27_dj18_cms32: 
+          requires: 
+            - py27_code
+      - py27_dj18_cms33_fe: 
+          requires: 
+            - py27_code
+
